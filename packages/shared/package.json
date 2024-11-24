@@ -1,0 +1,37 @@
+{
+  "name": "@extract-anything/shared",
+  "version": "0.0.5",
+  "description": "",
+  "type": "module",
+  "sideEffects": false,
+  "private": false,
+  "main": "index.ts",
+  "scripts": {},
+  "keywords": [],
+  "exports": {
+    "./*": "./src/*.tsx"
+  },
+  "dependencies": {
+    "pdf-img-convert": "2.0.0",
+    "pdfjs-dist": "4.7.76",
+    "react-hook-form": "catalog:",
+    "react-aria-components": "catalog:",
+    "react-dom": "catalog:",
+    "react": "catalog:",
+    "lucide-react": "catalog:"
+  },
+  "peerDependencies": {
+    "@tanstack/react-table": "*",
+    "next": "*",
+    "ai": "*",
+    "js-cookie": "*",
+    "jszip": "*",
+    "xlsx": "*",
+    "@ai-sdk/openai": "*",
+    "@extract-anything/ui": "*",
+    "csv-stringify": "*",
+    "react-medium-image-zoom": "*"
+  },
+  "author": "",
+  "license": "ISC"
+}

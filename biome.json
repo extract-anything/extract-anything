@@ -1,0 +1,71 @@
+{
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "files": {
+    "maxSize": 1572864
+  },
+  "javascript": {
+    "formatter": {
+      "semicolons": "asNeeded",
+      "jsxQuoteStyle": "double",
+      "quoteStyle": "double"
+    }
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "nursery": {
+        "useSortedClasses": "error"
+      },
+      "a11y": {
+        "noSvgWithoutTitle": "off"
+      },
+      "correctness": {
+        "noUnusedVariables": "off",
+        "useExhaustiveDependencies": "off"
+      },
+      "security": {
+        "noDangerouslySetInnerHtml": "off"
+      },
+      "style": {
+        "useBlockStatements": "error",
+        "noNonNullAssertion": "off"
+      },
+      "performance": {
+        "noDelete": "off",
+        "noBarrelFile": "error"
+      },
+      "suspicious": {
+        "noExplicitAny": "off"
+      },
+      "complexity": {
+        "noForEach": "off"
+      }
+    },
+    "ignore": [".vitest", "node_modules", ".next", "dist", ".nuxt"]
+  },
+  "formatter": {
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "enabled": true,
+    "lineWidth": 100,
+    "ignore": ["node_modules", ".next", "dist"]
+  },
+  "organizeImports": {
+    "enabled": true,
+    "ignore": ["node_modules", ".next", "dist"]
+  },
+  "overrides": [
+    {
+      "include": ["*.astro"],
+      "linter": {
+        "rules": {
+          "style": {
+            "useConst": "off",
+            "useImportType": "off"
+          }
+        }
+      }
+    }
+  ]
+}
