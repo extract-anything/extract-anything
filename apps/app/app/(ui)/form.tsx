@@ -163,9 +163,9 @@ export default function Home({
               <Results data={results} setResults={setResults} />
             ) : (
               <motion.div className="h-full w-full px-4 md:px-0">
-                <div className="flex h-full flex-col items-center justify-center gap-4 border p-6 text-sm text-zinc-500 dark:border-zinc-700 dark:text-zinc-400">
-                  <p className="flex flex-row items-center justify-center gap-4 text-2xl text-slate-600">
-                    Input text or upload a file to get started
+                <div className="flex h-full flex-col items-center justify-center gap-4 border p-6 text-center text-sm text-zinc-500 dark:border-zinc-700 dark:text-zinc-400">
+                  <p className="flex flex-row items-center justify-center gap-4 text-balance text-2xl text-slate-600">
+                    Describe the data you want to extract and upload a file to get started
                   </p>
                 </div>
               </motion.div>

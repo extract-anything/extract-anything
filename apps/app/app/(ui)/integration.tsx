@@ -99,7 +99,7 @@ const Icons = {
       <title>drive-color</title>
       <desc>Created with Sketch.</desc>
       <defs />
-      <g id="Icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+      <g id="Icons" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
         <g id="Color-" transform="translate(-601.000000, -955.000000)">
           <g id="drive" transform="translate(601.000000, 955.000000)">
             <polygon
