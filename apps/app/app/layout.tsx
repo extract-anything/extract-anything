@@ -1,4 +1,5 @@
 import { Footer } from "@/components/footer"
+import { Header } from "@/components/header"
 import "./globals.css"
 import { GeistSans } from "geist/font/sans"
 import type { Metadata } from "next"
@@ -57,6 +58,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${GeistSans.className}`} suppressHydrationWarning>
       <body suppressHydrationWarning>
+        <Header />
         <Toaster position="top-center" richColors />
         <div className="w-full bg-gradient-to-br from-indigo-50 via-white to-sky-100">
           <div className="mx-auto min-h-screen w-full max-w-screen-2xl p-4 pt-20">

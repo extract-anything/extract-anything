@@ -8,16 +8,17 @@ const duration = 4
 const steps = [
   {
     title: "Upload your data",
-    description: "Write your prompt or upload files directly to get started."
+    description: "Write your prompt or upload files directly to get started.",
   },
   {
     title: "Define your key data",
-    description: "Input the key values to extract the exact information you need."
+    description: "Input the key values to extract the exact information you need.",
   },
   {
     title: "AI does the rest",
-    description: "Sit back as our AI extracts and organizes your data with precision. You can export the results as SVG or Excel."
-  }
+    description:
+      "Sit back as our AI extracts and organizes your data with precision. You can export the results as SVG or Excel.",
+  },
 ]
 
 export function Guide() {
@@ -60,7 +61,7 @@ const Step = ({
         containerRef={containerRef}
         fromRef={div1Ref}
         toRef={div2Ref}
-        delay={duration* index}
+        delay={duration * index}
         startTime={2 * duration}
         pathWidth={3}
         gradientCoordinates={{

@@ -56,7 +56,7 @@ export const AnimatedBeam: React.FC<AnimatedBeamProps> = ({
     x2: ["0%", "100%"],
     y1: ["0%", "0%"],
     y2: ["0%", "0%"],
-  }
+  },
 }) => {
   const id = useId()
   const [pathD, setPathD] = useState("")
@@ -97,8 +97,8 @@ export const AnimatedBeam: React.FC<AnimatedBeamProps> = ({
       resizeObserver.observe(containerRef.current)
     }
 
-  // Call the updatePath initially to set the initial path
-  updatePath()
+    // Call the updatePath initially to set the initial path
+    updatePath()
 
     // Clean up the observer on component unmount
     return () => {
