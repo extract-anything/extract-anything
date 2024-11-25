@@ -11,7 +11,7 @@ const steps = [
     description: "Write your prompt or upload files directly to get started.",
   },
   {
-    title: "Define your key data",
+    title: "Define what you want to extract",
     description: "Input the key values to extract the exact information you need.",
   },
   {
