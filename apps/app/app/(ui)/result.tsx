@@ -33,7 +33,6 @@ export const Results = <TData extends object>({
 
   const table = useReactTable({
     data,
-    debugTable: true,
     columns,
     state: { sorting, columnVisibility },
     onColumnVisibilityChange: setColumnVisibility,

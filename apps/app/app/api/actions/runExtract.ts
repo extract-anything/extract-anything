@@ -93,7 +93,7 @@ export const runExtract = async (
         // @ts-ignore
         messages[1].content.push({ type: "text", text })
       }
-      const { elementStream } = await streamObject({
+      const { partialObjectStream } = await streamObject({
         frequencyPenalty: 0,
         maxTokens: 3000,
         presencePenalty: 0,
@@ -124,7 +124,7 @@ export const runExtract = async (
         },
       })
 
-      for await (const element of elementStream) {
+      for await (const element of partialObjectStream) {
         streamableStatus.update(element)
       }
       streamableStatus.done("Done")

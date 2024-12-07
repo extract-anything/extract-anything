@@ -4,7 +4,6 @@ import { runExtract } from "@/app/api/actions/runExtract"
 import { Setting } from "@/components/setting"
 import { Storage } from "@/lib/constants"
 import { Card } from "@extract-anything/shared/card"
-import { Download } from "@extract-anything/shared/download"
 import { FormInput } from "@extract-anything/shared/form-input"
 import { PromptInput } from "@extract-anything/shared/prompt-input"
 import { Button } from "@extract-anything/ui/button"
@@ -13,7 +12,7 @@ import { readStreamableValue } from "ai/rsc"
 import { motion } from "framer-motion"
 import { Loader2 } from "lucide-react"
 import { useState } from "react"
-import { FormProvider, useForm } from "react-hook-form"
+import { useForm } from "react-hook-form"
 import useFormPersist from "react-hook-form-persist"
 import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels"
 import { toast } from "sonner"
@@ -90,6 +89,7 @@ export default function Home({
     if (setting.isClearTable) {
       setResults([])
     }
+    const prev = results
 
     const { status } = await runExtract(data, setting, formData)
 
@@ -107,7 +107,7 @@ export default function Home({
             console.error(value.error)
             return
           }
-          setResults((prev) => [...prev, value])
+          setResults([...prev, ...value])
         }
       }
     } catch (error) {
@@ -116,6 +116,7 @@ export default function Home({
       console.error(error)
     }
   }
+
   const addFile = (file?: File) => {
     if (file) {
       setFiles((prev) => [...(prev || []), file])
