@@ -9,6 +9,8 @@ export const acceptedFileTypes = [
   "application/pdf",
   "text/plain",
   "application/zip",
+  "text/csv",
+  "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
 ]
 
 export const Storage = {

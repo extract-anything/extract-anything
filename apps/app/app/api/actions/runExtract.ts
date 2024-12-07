@@ -6,6 +6,7 @@ import { createStreamableValue } from "ai/rsc"
 import { convert as convertPdf } from "pdf-img-convert"
 import { PORTKEY_GATEWAY_URL, createHeaders } from "portkey-ai"
 import sharp from "sharp"
+import { read, utils } from "xlsx"
 import { z } from "zod"
 
 export const runExtract = async (
@@ -63,7 +64,7 @@ export const runExtract = async (
           content: [
             {
               type: "text",
-              text: "Here is the image(s) you need to extract the information from:",
+              text: "Here is the image(s) or documents(s) you need to extract the information from:",
             },
           ],
         },
@@ -71,6 +72,7 @@ export const runExtract = async (
       for (const file of files) {
         const type = file.type
         const buffer = await file.arrayBuffer()
+
         if (type === "application/pdf") {
           const oldBuffer = Buffer.from(buffer)
           const pages = (await convertPdf(oldBuffer, { scale: 3 })) as Uint8Array[]
@@ -83,6 +85,28 @@ export const runExtract = async (
           }
           continue
         }
+
+        if (type === "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") {
+          const workbook = read(buffer, { type: "array" })
+          for (const sheetName of workbook.SheetNames) {
+            const worksheet = workbook.Sheets[sheetName]
+            const jsonData = utils.sheet_to_json(worksheet, { header: 1 })
+            const jsonString = JSON.stringify(jsonData)
+
+            // @ts-ignore
+            messages[1].content.push({ type: "text", text: jsonString })
+          }
+          continue
+        }
+
+        if (type === "text/csv") {
+          const csvString = await file.text()
+
+          // @ts-ignore
+          messages[1].content.push({ type: "text", text: csvString })
+          continue
+        }
+
         // @ts-ignore
         messages[1].content.push({
           type: "image",

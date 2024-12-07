@@ -15,32 +15,51 @@ export const FileViewer = ({
     removeFile(file)
   }
 
-  const isPDF = file.type === "application/pdf"
+  const fileTypeLabel = useMemo(() => {
+    switch (file.type) {
+      case "application/pdf":
+        return "PDF"
+      case "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet":
+        return "Excel"
+      case "text/csv":
+        return "CSV"
+      default:
+        return null
+    }
+  }, [file.type])
+
+  const renderFileContent = () => {
+    if (fileTypeLabel) {
+      return (
+        <div className="flex items-center gap-3 p-2 pr-4">
+          <FileText />
+          <div className="flex flex-col items-start">
+            <p className="line-clamp-1 font-semibold">{file.name}</p>
+            {fileTypeLabel}
+          </div>
+        </div>
+      )
+    }
+
+    return (
+      <div className="flex h-14 w-14 items-center justify-center">
+        <Zoom>
+          <Image
+            src={url}
+            alt="file"
+            width={56}
+            height={56}
+            className="flex h-full w-full items-center justify-center"
+          />
+        </Zoom>
+      </div>
+    )
+  }
 
   return (
     <div className="group relative inline-block text-sm text-token-text-primary">
       <div className="relative overflow-hidden rounded-xl border border-token-border-light bg-token-main-surface-primary">
-        {isPDF ? (
-          <div className="flex items-center gap-3 p-2 pr-4">
-            <FileText />
-            <div className="flex flex-col items-start">
-              <p className="line-clamp-1 font-semibold">{file.name}</p>
-              PDF
-            </div>
-          </div>
-        ) : (
-          <div className="flex h-14 w-14 items-center justify-center">
-            <Zoom>
-              <Image
-                src={url}
-                alt="file"
-                width={56}
-                height={56}
-                className="flex h-full w-full items-center justify-center"
-              />
-            </Zoom>
-          </div>
-        )}
+        {renderFileContent()}
       </div>
       <button
         type="button"

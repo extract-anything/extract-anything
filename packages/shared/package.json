@@ -9,7 +9,7 @@
   "scripts": {},
   "keywords": [],
   "exports": {
-    "./*": "./src/*.tsx"
+    "./*": "./src/*"
   },
   "dependencies": {
     "pdf-img-convert": "2.0.0",

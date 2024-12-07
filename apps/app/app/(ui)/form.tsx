@@ -2,8 +2,8 @@
 
 import { runExtract } from "@/app/api/actions/runExtract"
 import { Setting } from "@/components/setting"
-import { Storage } from "@/lib/constants"
 import { Card } from "@extract-anything/shared/card"
+import { Storage } from "@extract-anything/shared/constants"
 import { FormInput } from "@extract-anything/shared/form-input"
 import { PromptInput } from "@extract-anything/shared/prompt-input"
 import { Button } from "@extract-anything/ui/button"
@@ -85,11 +85,12 @@ export default function Home({
     }
     data.schema = data.schema.filter((item) => item.key || item.description)
 
+    let prev = results
     const setting = { ...JSON.parse(Storage.getItem("setting-form") || "{}"), apiKey }
     if (setting.isClearTable) {
       setResults([])
+      prev = []
     }
-    const prev = results
 
     const { status } = await runExtract(data, setting, formData)
 

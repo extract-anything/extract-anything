@@ -1,5 +1,5 @@
 import { testApiKey } from "@/app/api/actions/testApiKey"
-import { Storage } from "@/lib/constants"
+import { Storage } from "@extract-anything/shared/constants"
 import { Button } from "@extract-anything/ui/button"
 import {
   Dialog,
