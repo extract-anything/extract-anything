@@ -18,7 +18,7 @@ export const FileViewer = ({
   const isPDF = file.type === "application/pdf"
 
   return (
-    <div className="group relative inline-block text-sm text-token-text-primary" key={file.name}>
+    <div className="group relative inline-block text-sm text-token-text-primary">
       <div className="relative overflow-hidden rounded-xl border border-token-border-light bg-token-main-surface-primary">
         {isPDF ? (
           <div className="flex items-center gap-3 p-2 pr-4">
@@ -29,18 +29,16 @@ export const FileViewer = ({
             </div>
           </div>
         ) : (
-          <div className="h-14 w-14">
-            <button type="button" className="h-full w-full">
-              <Zoom>
-                <Image
-                  src={url}
-                  alt="file"
-                  width={56}
-                  height={56}
-                  className="flex h-full w-full items-center justify-center"
-                />
-              </Zoom>
-            </button>
+          <div className="flex h-14 w-14 items-center justify-center">
+            <Zoom>
+              <Image
+                src={url}
+                alt="file"
+                width={56}
+                height={56}
+                className="flex h-full w-full items-center justify-center"
+              />
+            </Zoom>
           </div>
         )}
       </div>

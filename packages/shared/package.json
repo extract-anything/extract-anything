@@ -25,7 +25,7 @@
     "next": "*",
     "ai": "*",
     "js-cookie": "*",
-    "jszip": "*",
+    "fflate": "*",
     "xlsx": "*",
     "@ai-sdk/openai": "*",
     "@extract-anything/ui": "*",

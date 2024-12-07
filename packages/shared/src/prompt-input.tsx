@@ -1,5 +1,5 @@
 import { cn } from "@extract-anything/ui/utils"
-import JSZip from "jszip"
+import { unzip } from "fflate"
 import { Paperclip } from "lucide-react"
 import { useCallback, useEffect } from "react"
 import { Button, DropZone, FileTrigger } from "react-aria-components"
@@ -18,6 +18,32 @@ export const PromptInput = ({
 }) => {
   const { register } = useFormContext()
 
+  const handleFileProcessing = useCallback(
+    async (file: File) => {
+      if (file.type === "application/zip") {
+        const arrayBuffer = await file.arrayBuffer()
+        unzip(new Uint8Array(arrayBuffer), (err, files) => {
+          if (err) {
+            console.error(err)
+            return
+          }
+          for (const filename in files) {
+            if (!filename.startsWith("__MACOSX/")) {
+              const fileData = files[filename]
+              if (fileData) {
+                const blob = new Blob([fileData.buffer], { type: "application/octet-stream" })
+                addFile(new File([blob], filename))
+              }
+            }
+          }
+        })
+      } else {
+        addFile(file)
+      }
+    },
+    [addFile],
+  )
+
   const handlePaste = useCallback(
     async (event: ClipboardEvent) => {
       const items = event.clipboardData?.items
@@ -26,27 +52,14 @@ export const PromptInput = ({
           if (acceptedFileTypes.includes(item.type)) {
             const file = item.getAsFile()
             if (file) {
-              if (file.type === "application/zip") {
-                const zip = new JSZip()
-                const contents = await zip.loadAsync(file)
-                for (const filename in contents.files) {
-                  const zipFile = contents.files[filename]
-                  if (!zipFile.dir) {
-                    const extractedFile = await zipFile.async("blob")
-                    addFile(new File([extractedFile], filename))
-                  }
-                }
-              } else {
-                addFile(file)
-              }
-              // Prevent the file name from being appended to the textarea
+              await handleFileProcessing(file)
               event.preventDefault()
             }
           }
         }
       }
     },
-    [addFile],
+    [handleFileProcessing],
   )
 
   useEffect(() => {
@@ -66,23 +79,10 @@ export const PromptInput = ({
         )
       }
       onDrop={async (e) => {
-        console.log(e)
         const fileList = e.items.filter((file) => file.kind === "file")
         for (const item of fileList) {
           const file = await item.getFile()
-          if (file.type === "application/zip") {
-            const zip = new JSZip()
-            const contents = await zip.loadAsync(file)
-            for (const filename in contents.files) {
-              const zipFile = contents.files[filename]
-              if (!zipFile.dir) {
-                const extractedFile = await zipFile.async("blob")
-                addFile(new File([extractedFile], filename))
-              }
-            }
-          } else {
-            addFile(file)
-          }
+          await handleFileProcessing(file)
         }
       }}
       getDropOperation={(types) =>
@@ -111,19 +111,7 @@ export const PromptInput = ({
               onSelect={async (fileList) => {
                 if (fileList) {
                   for (const file of fileList) {
-                    if (file.type === "application/zip") {
-                      const zip = new JSZip()
-                      const contents = await zip.loadAsync(file)
-                      for (const filename in contents.files) {
-                        const zipFile = contents.files[filename]
-                        if (!zipFile.dir) {
-                          const extractedFile = await zipFile.async("blob")
-                          addFile(new File([extractedFile], filename))
-                        }
-                      }
-                    } else {
-                      addFile(file)
-                    }
+                    await handleFileProcessing(file)
                   }
                 }
               }}

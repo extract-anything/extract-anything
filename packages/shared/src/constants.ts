@@ -8,6 +8,7 @@ export const acceptedFileTypes = [
   "image/svg+xml",
   "application/pdf",
   "text/plain",
+  "application/zip",
 ]
 
 export const Storage = {
