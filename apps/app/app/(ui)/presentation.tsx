@@ -1,17 +1,13 @@
 import { Testimonials } from "@/app/(ui)/testimonial"
-import {
-  CloudIcon,
-  GithubIcon,
-  Share2Icon,
-  ShieldIcon,
-  SparkleIcon,
-  Wand2Icon,
-  WandIcon,
-} from "lucide-react"
+import { CloudIcon, Share2Icon, WandIcon } from "lucide-react"
 import Image from "next/image"
 import { BentoCard, BentoGrid } from "./bento-grid"
+import { Configurable } from "./configurable"
+import { DeveloperFriendly } from "./developer-friendly"
+import { FlickeringGrid } from "./flickering-grid"
 import { Guide } from "./guide"
 import { Integration } from "./integration"
+import { UseCase } from "./use-case"
 
 const features = [
   {
@@ -45,7 +41,7 @@ const features = [
     name: "Open source",
     description: "Easy for auditing and customization.",
     className: "col-span-3 lg:col-span-1",
-    background: undefined,
+    background: <DeveloperFriendly />,
   },
   {
     icon: (
@@ -53,8 +49,18 @@ const features = [
     ),
     name: "AI-powered",
     description: "Extract Anything is powered by OpenAI Vision.",
-    className: "col-span-3 lg:col-span-1",
-    background: undefined,
+    className: "col-span-3 lg:col-span-1 relative",
+    background: (
+      <FlickeringGrid
+        className="absolute inset-0 z-0 size-full"
+        squareSize={4}
+        gridGap={6}
+        color="#6B7280"
+        maxOpacity={0.5}
+        flickerChance={0.1}
+        height={200}
+      />
+    ),
   },
   {
     icon: (
@@ -62,8 +68,8 @@ const features = [
     ),
     name: "API and Cloud Ready",
     description: "Use our API or cloud services for seamless integration and scalability.",
-    className: "col-span-3 lg:col-span-2",
-    background: undefined,
+    className: "col-span-3 lg:col-span-2 relative",
+    background: <Configurable />,
   },
 ]
 
@@ -110,6 +116,12 @@ export function Presentation() {
     <div className="flex flex-col gap-6 py-24">
       <div className="md:mt-32 md:mb-10">
         <Guide />
+      </div>
+      <div className="relative mx-auto my-20 flex h-[40rem] w-full max-w-5xl flex-col items-start justify-start [perspective:1000px] md:h-[30rem]">
+        <h3 className="mb-6 w-full text-center font-bold text-2xl text-gray-800">
+          Discover how Extract Anything transforms industries.
+        </h3>
+        <UseCase />
       </div>
       <BentoGrid className="mt-10">
         {features.map((feature, idx) => (

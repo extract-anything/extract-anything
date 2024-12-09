@@ -25,11 +25,11 @@ export const runExtract = async (
 ) => {
   const openai = createOpenAI({
     apiKey: setting.apiKey,
-    baseURL: setting.isOptOutTelemetry ? undefined : PORTKEY_GATEWAY_URL,
-    headers: createHeaders({
-      provider: "openai",
-      apiKey: process.env.PORTKEY_API_KEY,
-    }),
+    // baseURL: setting.isOptOutTelemetry ? undefined : PORTKEY_GATEWAY_URL,
+    // headers: createHeaders({
+    //   provider: "openai",
+    //   apiKey: process.env.PORTKEY_API_KEY,
+    // }),
   })
 
   const files: File[] = []
